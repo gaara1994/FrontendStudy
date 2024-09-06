@@ -1,0 +1,31 @@
+<script setup lang="ts">
+import Test from './components/Test.vue'
+import Ref from './components/Ref.vue'
+import Computed from './components/Computed.vue'
+import Watch from './components/Watch.vue'
+import WatchEffect from './components/WatchEffect.vue'
+import Prop from './components/Props.vue'
+import LifeCycle from './components/LifeCycle.vue'
+import { type PersonList } from './types/index'
+import Hook from './components/Hook.vue'
+
+import { reactive } from 'vue'
+
+
+
+
+</script>
+
+<template>
+  <!-- 渲染Test组件 -->
+  <!-- <Test /> -->
+  <!-- <Ref /> -->
+  <!-- <Computed /> -->
+  <!-- <Watch /> -->
+  <!-- <WatchEffect /> -->
+  <!-- <Prop :car="car" :list="personList" /> -->
+  <!-- <LifeCycle /> -->
+  <!-- <Hook /> -->
+</template>
+
+<style scoped></style>
