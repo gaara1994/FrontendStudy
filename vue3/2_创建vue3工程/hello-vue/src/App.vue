@@ -6,21 +6,19 @@
             <RouterLink to="/home" active-class="active">首页</RouterLink>
             <RouterLink to="/news" active-class="active">新闻</RouterLink>
             <RouterLink to="/about" active-class="active">关于</RouterLink>
-
         </div>
         <!-- 展示区 -->
         <div class="main-content">
             <RouterView />
-
         </div>
+        <RouterView />
+        <RouterView />
     </div>
-
 </template>
 
 <script setup lang="ts">
 //引入路由视图
 import { RouterView, RouterLink } from "vue-router";
-
 </script>
 
 

@@ -9,5 +9,5 @@ import router from './router'
 const app = createApp(App)
 //注册路由器
 app.use(router)
-//挂载
+//挂载到dom
 app.mount('#app')

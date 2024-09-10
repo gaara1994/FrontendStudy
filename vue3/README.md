@@ -1315,6 +1315,174 @@ let { dogList, getDog } = useDog();
 
 # 4.路由
 
+## 1.路由使用
+
+### 1.安装 Vue Router
+
+```shell
+npm i vue-router
+```
+
+### 2.定义路由
+
+在项目的 `src/router` 目录下创建一个 `index.ts` 文件，定义路由配置：
+
+```ts
+//引入createRouter
+import { createRouter, createWebHashHistory } from 'vue-router'
+//引入路由组件
+import Home from '@/components/Home.vue'
+import News from '@/components/News.vue'
+import About from '@/components/About.vue'
+
+//创建路由器
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes: [{
+        path: '/home',
+        component: Home
+    },
+    {
+        path: '/news',
+        component: News
+    },
+    {
+        path: '/about',
+        component: About
+    }
+    ]
+})
+
+export default router
+```
+
+
+
+### 3.导入并使用路由
+
+在`main.ts`文件中导入路由，并将其传递给Vue应用程序实例：
+
+```ts
+import { createApp } from 'vue'
+import App from './App.vue'
+//引入路由器
+import router from './router'
+
+const app = createApp(App)
+//注册路由器
+app.use(router)
+//挂载到dom
+app.mount('#app')
+```
+
+
+
+`<RouterLink>` 和 `<RouterView>` 是Vue Router提供的两个重要的组件，它们在单页面应用（SPA）中起到了关键的作用。
+
+#### **`<RouterLink>`**
+
+组件用于创建链接，类似于HTML中的 `<a>` 标签，但它不会导致整个页面的重新加载，而是只更新页面的一部分（即路由视图区域），从而实现页面的局部刷新。
+
+属性
+
+- **`to`**：指定链接的目标地址。可以是一个字符串，也可以是一个对象。如果是对象，可以包含 `name`（路由名）、`params`（路由参数）和 `query`（查询参数）等属性。
+
+```vue
+<template>
+  <div>
+    <router-link to="/home">首页</router-link> 
+    <router-link to="/news">新闻</router-link>
+    <router-link to="/about">关于</router-link>
+  </div>
+</template>
+```
+
+
+
+#### **`<RouterView>`**
+
+是一个容器组件，它会根据当前的路由展示不同的组件。每当路由发生变化时，这个组件就会重新渲染对应的路由组件。
+
+```vue
+<template>
+    <div class="app">
+        <h2 class="title">Vue路由测试</h2>
+        <!-- 导航区 -->
+        <div class="navigate">
+            <RouterLink to="/home" active-class="active">首页</RouterLink>
+            <RouterLink to="/news" active-class="active">新闻</RouterLink>
+            <RouterLink to="/about" active-class="active">关于</RouterLink>
+        </div>
+        <!-- 展示区 -->
+        <div class="main-content">
+            <RouterView />
+        </div>
+        <RouterView />
+        <RouterView />
+    </div>
+</template>
+```
+
+
+
+## 2.注意点
+
+普通组件放到`src/components/`目录下。
+
+路由组件放到`src/pages/`目录下，或者是`src/views/`目录下。
+
+
+
+## 3.路由两种模式
+
+
+
+## 4.不同的历史模式
+
+在创建路由器实例时，`history` 配置允许我们在不同的历史模式中进行选择。
+
+#### Hash 模式
+
+```ts
+import { createRouter, createWebHashHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: [
+    //...
+  ],
+})
+```
+
+```shell
+http://localhost:5173/#/about
+```
+
+它在内部传递的实际 URL 之前使用了一个哈希字符（`#`）。由于这部分 URL **从未被发送到服务器**，所以它不需要在服务器层面上进行任何特殊处理。由于不够美观和不利于SEO，所以适用于后台管理系统。
+
+
+
+#### HTML5 模式
+
+```ts
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    //...
+  ],
+})
+```
+
+当使用这种历史模式时，URL 会看起来很 "正常"，例如 `https://example.com/user/id`。漂亮! 这就适用于C端。
+
+不过，问题来了。由于我们的应用是一个单页的客户端应用，如果没有适当的服务器配置，用户在浏览器中直接访问 `https://example.com/user/id`，就会得到一个 404 错误。这就尴尬了。
+
+不用担心：要解决这个问题，你需要做的就是在你的服务器上添加一个简单的回退路由。如果 URL 不匹配任何静态资源，它应提供与你的应用程序中的 `index.html` 相同的页面。漂亮依旧!
+
+
+
 
 
 
